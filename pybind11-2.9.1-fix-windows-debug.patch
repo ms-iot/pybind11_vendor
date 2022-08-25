@@ -46,6 +46,20 @@ diff --git a/tools/pybind11NewTools.cmake b/tools/pybind11NewTools.cmake
 index 0b4e21cc..74a110df 100644
 --- a/tools/pybind11NewTools.cmake
 +++ b/tools/pybind11NewTools.cmake
+@@ -34,7 +34,7 @@ if(NOT Python_FOUND
+     set(Python_ROOT_DIR "$ENV{pythonLocation}")
+   endif()
+ 
+-  find_package(Python REQUIRED COMPONENTS Interpreter Development ${_pybind11_quiet})
++  find_package(Python3.6 REQUIRED COMPONENTS Interpreter Development ${_pybind11_quiet})
+ 
+   # If we are in submodule mode, export the Python targets to global targets.
+   # If this behavior is not desired, FindPython _before_ pybind11.
+
+diff --git a/tools/pybind11NewTools.cmake b/tools/pybind11NewTools.cmake
+index 0b4e21cc..74a110df 100644
+--- a/tools/pybind11NewTools.cmake
++++ b/tools/pybind11NewTools.cmake
 @@ -134,7 +134,7 @@ if(PYTHON_IS_DEBUG)
    set_property(
      TARGET pybind11::pybind11
@@ -55,16 +69,6 @@ index 0b4e21cc..74a110df 100644
  endif()
  
  # Check on every access - since Python2 and Python3 could have been used - do nothing in that case.
-@@ -204,7 +204,8 @@ function(pybind11_add_module target_name)
-   if("${_Python}" STREQUAL "Python")
-     python_add_library(${target_name} ${lib_type} ${ARG_UNPARSED_ARGUMENTS})
-   elseif("${_Python}" STREQUAL "Python3")
--    python3_add_library(${target_name} ${lib_type} ${ARG_UNPARSED_ARGUMENTS})
-+    find_package (Python3 COMPONENTS Interpreter Development)
-+    Python3_add_library(${target_name} ${lib_type} ${ARG_UNPARSED_ARGUMENTS})
-   elseif("${_Python}" STREQUAL "Python2")
-     python2_add_library(${target_name} ${lib_type} ${ARG_UNPARSED_ARGUMENTS})
-   else(
 diff --git a/tools/pybind11Tools.cmake b/tools/pybind11Tools.cmake
 index c255e5cf..0fa80be8 100644
 --- a/tools/pybind11Tools.cmake
